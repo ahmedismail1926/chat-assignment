@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat - Chat App</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="chat-container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="user-info">
+        <span id="current-user">Loading...</span>
+        <button id="logout-btn" class="btn-small">Logout</button>
+      </div>
+      
+      <!-- Friend Search -->
+      <div class="friend-search">
+        <input type="text" id="search-input" placeholder="Search users...">
+        <button id="search-btn" class="btn-small">Search</button>
+        <div id="search-results" class="search-results"></div>
+      </div>
+      
+      <!-- Friends List -->
+      <div class="friends-section">
+        <h3>Friends</h3>
+        <ul id="friends-list" class="friends-list"></ul>
+      </div>
+      
+      <!-- Friend Requests -->
+      <div class="requests-section">
+        <h3>Friend Requests</h3>
+        <ul id="requests-list" class="requests-list"></ul>
+      </div>
+    </div>
+    
+    <!-- Chat Area -->
+    <div class="chat-area">
+      <div id="chat-header" class="chat-header">
+        <h2>Select a friend to start chatting</h2>
+      </div>
+      
+      <div id="messages-container" class="messages-container">
+        <div class="no-messages">
+          <p>No conversation selected</p>
+        </div>
+      </div>
+      
+      <div id="message-form-container" class="message-form-container" style="display: none;">
+        <form id="message-form">
+          <input type="text" id="message-input" placeholder="Type your message...">
+          <button type="submit" class="btn">Send</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/auth.js"></script>
+  <script src="/js/friends.js"></script>
+  <script src="/js/chat.js"></script>
+</body>
+</html>

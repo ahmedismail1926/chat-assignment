@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register - Chat App</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="auth-container">
+      <h1>Register</h1>
+      <form id="register-form">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required>
+        </div>
+        <div class="form-group">
+          <label for="confirm-password">Confirm Password</label>
+          <input type="password" id="confirm-password" name="confirm-password" required>
+        </div>
+        <button type="submit" class="btn">Register</button>
+        <p class="message" id="message"></p>
+      </form>
+      <p>Already have an account? <a href="/login.html">Login</a></p>
+    </div>
+  </div>
+
+  <script src="/js/auth.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Check if already logged in
+      checkAuth()
+        .then(user => {
+          if (user) {
+            window.location.href = '/chat.html';
+          }
+        })
+        .catch(err => console.error('Auth check error:', err));
+      
+      // Handle register form submission
+      document.getElementById('register-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirm-password').value;
+        const messageEl = document.getElementById('message');
+        
+        // Check if passwords match
+        if (password !== confirmPassword) {
+          messageEl.textContent = 'Passwords do not match';
+          messageEl.classList.add('error');
+          return;
+        }
+        
+        try {
+          const response = await fetch('/api/auth/register', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username, password })
+          });
+          
+          const data = await response.json();
+          
+          if (!response.ok) {
+            messageEl.textContent = data.message;
+            messageEl.classList.add('error');
+            return;
+          }
+          
+          // Store token in localStorage
+          localStorage.setItem('token', data.token);
+          
+          // Redirect to chat
+          window.location.href = '/chat.html';
+        } catch (err) {
+          console.error('Register error:', err);
+          messageEl.textContent = 'Server error. Please try again.';
+          messageEl.classList.add('error');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

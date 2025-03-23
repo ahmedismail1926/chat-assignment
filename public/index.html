@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat App</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="container" id="app">
+    <div id="loading-screen">Loading...</div>
+  </div>
+
+  <script src="/js/auth.js"></script>
+  <script>
+    // Check authentication and redirect accordingly
+    document.addEventListener('DOMContentLoaded', () => {
+      checkAuth()
+        .then(user => {
+          if (user) {
+            window.location.href = '/chat.html';
+          } else {
+            window.location.href = '/login.html';
+          }
+        })
+        .catch(err => {
+          console.error('Auth error:', err);
+          window.location.href = '/login.html';
+        });
+    });
+  </script>
+</body>
+</html>
