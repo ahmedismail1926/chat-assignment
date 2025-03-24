@@ -1,3 +1,6 @@
+Name: Ahmed Mohamed 
+Id:1210405
+
 Chat Application README
 Overview
 This is a simple web-based chat application that allows users to register, add friends, and exchange text messages. The application uses HTTP protocol with a Node.js backend and SQLite database.
